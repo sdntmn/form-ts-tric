@@ -2,22 +2,24 @@ interface InputProps {
   name: string;
   type: string;
   value: string;
-  onChange: any;
+
   className: string;
   placeholder?: string;
-  onBlur: any;
+
   isData: boolean;
+  onBlur: () => void;
+  onChange: () => void;
 }
 
 function InputPopup({
   name,
   type,
   value,
-  onChange,
+  isData,
   className,
   placeholder,
   onBlur,
-  isData,
+  onChange,
 }: InputProps): JSX.Element {
   console.log(isData);
   return (

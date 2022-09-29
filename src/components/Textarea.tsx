@@ -1,4 +1,13 @@
-import { React } from "react";
+interface ITextAreaProps {
+  name: string;
+
+  value: string;
+
+  placeholder?: string;
+  onBlur: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  isData: boolean;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
 
 const TextArea = function ({
   name,
@@ -7,7 +16,7 @@ const TextArea = function ({
   placeholder,
   onBlur,
   isData,
-}) {
+}: ITextAreaProps) {
   return (
     <div className="form__wrap">
       <label className="form__label form__label-extend">{placeholder}</label>
