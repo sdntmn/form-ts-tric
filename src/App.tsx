@@ -159,10 +159,10 @@ function App(): JSX.Element {
           placeholder="Сообщение"
           name="textFeedback"
           value={textFeedback.value}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
             textFeedback.handleChange(event)
           }
-          onBlur={(event: React.FocusEvent<HTMLInputElement>) =>
+          onBlur={(event: React.FocusEvent<HTMLTextAreaElement>) =>
             textFeedback.onBlur(event)
           }
           isData={textFeedback}

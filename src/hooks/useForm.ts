@@ -1,3 +1,4 @@
+import { type } from "os";
 import { useState, useCallback } from "react";
 import { useValidate } from "./useValidation";
 
@@ -10,6 +11,8 @@ interface IUseForm {
 
   [key: string]: unknown;
 }
+
+// type evtInt = {propsType : HTMLInputElement | HTMLSelectElement| HTMLTextAreaElement}
 
 export function useForm(
   _initialValue: string,
@@ -29,7 +32,7 @@ export function useForm(
   isBlur: boolean;
   resetFrom: (newValues?: string, newIsValid?: boolean) => void;
   handleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+   
   ) => void;
   onBlur: (event: React.FormEvent) => void;
 } {
@@ -39,16 +42,17 @@ export function useForm(
   const [sizeFile, setSizeFile] = useState<number>(0);
   const valid = useValidate(value, validations, inputName, isBlur, sizeFile);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input: EventTarget & HTMLInputElement = event.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement| HTMLTextAreaElement>) => {
+    let input: EventTarget & (HTMLInputElement | HTMLSelectElement| HTMLTextAreaElement) = event.target;
     const nameInput = input.name;
     const inputValue = input.value;
 
     setValue(inputValue);
     setInputName(nameInput);
     if (nameInput === "file") {
+     
       if (input.files !== null) {
-        const file = input.files[0];
+        const file:File = input.files[0];
         const sizePicture: number = file.size / 1024 / 1024;
 
         setSizeFile(sizePicture);
