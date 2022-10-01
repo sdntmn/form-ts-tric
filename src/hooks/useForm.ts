@@ -11,6 +11,13 @@ interface IUseForm {
   [key: string]: unknown;
 }
 
+type FormFields = {
+  username: HTMLInputElement;
+};
+
+const inputElement = "HTMLInputElement";
+const selectElement = "HTMLSelectElement";
+
 export function useForm(
   _initialValue: string,
   validations: IUseForm
@@ -28,10 +35,12 @@ export function useForm(
   value: string;
   isBlur: boolean;
   resetFrom: (newValues?: string, newIsValid?: boolean) => void;
-  handleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  handleChange: (event: any) => typeof inputElement;
+  onBlur: (
+    event: React.FocusEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => void;
-  onBlur: (event: React.FormEvent) => void;
 } {
   const [value, setValue] = useState<string>("");
   const [inputName, setInputName] = useState<string>("");
@@ -39,8 +48,14 @@ export function useForm(
   const [sizeFile, setSizeFile] = useState<number>(0);
   const valid = useValidate(value, validations, inputName, isBlur, sizeFile);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input: EventTarget & HTMLInputElement = event.target;
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): typeof inputElement;
+  function handleChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): typeof selectElement;
+  function handleChange(event: any): any {
+    let input = event.target;
     const nameInput = input.name;
     const inputValue = input.value;
 
@@ -49,12 +64,13 @@ export function useForm(
     if (nameInput === "file") {
       if (input.files !== null) {
         const file = input.files[0];
+        console.log(file);
         const sizePicture: number = file.size / 1024 / 1024;
 
         setSizeFile(sizePicture);
       }
     }
-  };
+  }
 
   const onBlur = (event: React.FormEvent) => {
     setBlur(true);

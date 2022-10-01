@@ -1,26 +1,33 @@
-interface InputProps {
+const inputElement = "HTMLInputElement";
+const selectElement = "HTMLSelectElement";
+
+interface IInputProps {
   name: string;
   type: string;
   value: string;
-
+  isData: boolean;
+  textError: string;
   className: string;
   placeholder?: string;
-
-  isData: boolean;
-  onBlur: () => void;
-  onChange: () => void;
+  autoComplete?: string;
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  // onChange: (event: React.ChangeEvent<HTMLInputElement>): any ;
+  // onChange: (event: React.ChangeEvent< HTMLSelectElement>)
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function InputPopup({
+function Input({
   name,
   type,
   value,
   isData,
+  textError,
   className,
   placeholder,
+  autoComplete,
   onBlur,
   onChange,
-}: InputProps): JSX.Element {
+}: IInputProps): JSX.Element {
   console.log(isData);
   return (
     <div className="form__wrap">
@@ -32,14 +39,11 @@ function InputPopup({
         onChange={onChange}
         className={className}
         onBlur={onBlur}
-        autoComplete="off"
+        autoComplete={autoComplete}
       />
-      <span className="form__input-error">
-        {" "}
-        {/* {isData?.isBlur && isData?.textError} */}
-      </span>
+      <span className="form__input-error"> {isData && textError}</span>
     </div>
   );
 }
 
-export default InputPopup;
+export default Input;

@@ -34,7 +34,7 @@ function App(): JSX.Element {
   const [resultEvent, setResultEvent] = useState({});
   const [listFeedback, setListFeedback] = useState([{}]);
 
-  function addFeedback(feedback: IFeedback) {
+  function addFeedback(feedback: IFeedback): void {
     setListFeedback((prev) => [...prev, feedback]);
   }
 
@@ -71,13 +71,18 @@ function App(): JSX.Element {
     (!family.inputValid && !name.inputValid);
 
   // // Оставил чтобы видно было сохранение данных
-  console.log(resultEvent);
+  console.log(Input);
   console.log(listFeedback);
+
   return (
     <div className="feedback container">
       <h1 className="feedback__title">Обратная связь</h1>
 
-      <form className="form feedback__form" onSubmit={submitHandler}>
+      <form
+        className="form feedback__form"
+        onSubmit={submitHandler}
+        autoComplete="off"
+      >
         <Input
           name="name"
           type="text"
@@ -90,7 +95,9 @@ function App(): JSX.Element {
           onBlur={(event: React.FocusEvent<HTMLInputElement>) =>
             name.onBlur(event)
           }
-          isData={name}
+          isData={name.isBlur}
+          textError={name.textError}
+          autoComplete="off"
         />
 
         <Input
@@ -105,7 +112,8 @@ function App(): JSX.Element {
           onBlur={(event: React.FocusEvent<HTMLInputElement>) =>
             family.onBlur(event)
           }
-          isData={family}
+          isData={family.isBlur}
+          textError={family.textError}
         />
 
         <Input
@@ -120,7 +128,8 @@ function App(): JSX.Element {
           onBlur={(event: React.FocusEvent<HTMLInputElement>) =>
             email.onBlur(event)
           }
-          isData={email}
+          isData={email.isBlur}
+          textError={email.textError}
         />
 
         <div className="select">
@@ -135,9 +144,9 @@ function App(): JSX.Element {
             id="standard-select"
             name="category"
             value={category.value}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              category.handleChange(event)
-            }
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+              category.handleChange(event);
+            }}
             onBlur={(event: React.FocusEvent<HTMLSelectElement>) =>
               category.onBlur(event)
             }
@@ -155,17 +164,19 @@ function App(): JSX.Element {
             {category.isBlur && !category.value ? "Выберите категорию." : ""}
           </span>
         </div>
+
         <TextArea
           placeholder="Сообщение"
           name="textFeedback"
           value={textFeedback.value}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
             textFeedback.handleChange(event)
           }
-          onBlur={(event: React.FocusEvent<HTMLInputElement>) =>
+          onBlur={(event: React.FocusEvent<HTMLTextAreaElement>) =>
             textFeedback.onBlur(event)
           }
-          isData={textFeedback}
+          isData={textFeedback.isBlur}
+          textError={textFeedback.textError}
         />
         <Input
           name="file"
@@ -178,7 +189,8 @@ function App(): JSX.Element {
           onBlur={(event: React.FocusEvent<HTMLInputElement>) =>
             file.onBlur(event)
           }
-          isData={file}
+          isData={file.isBlur}
+          textError={file.textError}
         />
         <button
           type="submit"

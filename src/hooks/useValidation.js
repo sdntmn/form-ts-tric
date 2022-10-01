@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export function useValidate(value, validations, inputName, isBlur, sizeFile) {
   const [inputValid, setInputValid] = useState(false);
@@ -8,64 +8,64 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
   const [nameError, setNameError] = useState(false);
   const [fileNameError, setFileNameError] = useState(false);
   const [fileSizeError, setFileSizeError] = useState(false);
-  const [textError, setTextError] = useState('');
+  const [textError, setTextError] = useState("");
 
   useEffect(
     function (evt) {
       for (const validation in validations) {
         // Валидация на пустой или нет
-        if (validation === 'isEmpty') {
+        if (validation === "isEmpty") {
           value ? setIsEmptyError(false) : setIsEmptyError(true);
         }
         // Валидация на минимальную длину
-        if (validation === 'minLength') {
+        if (validation === "minLength") {
           switch (inputName) {
-            case 'name':
+            case "name":
               if (value.length < validations[validation]) {
                 setMinLengthError(true);
-                setTextError('Минимальное количество знаков 2');
+                setTextError("Минимальное количество знаков 2");
               } else {
                 setMinLengthError(false);
-                setTextError('');
+                setTextError("");
               }
 
               break;
-            case 'family':
+            case "family":
               if (value.length < validations[validation]) {
                 setMinLengthError(true);
-                setTextError('Минимальное количество знаков 2');
+                setTextError("Минимальное количество знаков 2");
               } else {
                 setMinLengthError(false);
-                setTextError('');
+                setTextError("");
               }
               break;
-            case 'email':
+            case "email":
               if (value.length < validations[validation]) {
                 setMinLengthError(true);
-                setTextError('Минимальное количество знаков 3');
+                setTextError("Минимальное количество знаков 3");
               } else {
                 setMinLengthError(false);
-                setTextError('');
+                setTextError("");
               }
               break;
-            case 'textFeedback':
+            case "textFeedback":
               if (value.length < validations[validation]) {
                 setMinLengthError(true);
-                setTextError('Минимальное количество знаков 10');
+                setTextError("Минимальное количество знаков 10");
               } else {
                 setMinLengthError(false);
-                setTextError('');
+                setTextError("");
               }
               break;
             default:
-              setTextError('');
+              setTextError("");
           }
         }
 
-        // Валидация на соответствие правильности написания имени и фамилии
-        if (validation === 'isEmail' && !minLengthError) {
+        // Валидация на соответствие email
+        if (validation === "isEmail" && !minLengthError) {
           switch (inputName) {
-            case 'email':
+            case "email":
               const patternEmail =
                 /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
               const patternEmailBoolean = patternEmail.test(
@@ -74,35 +74,35 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
 
               if (!patternEmailBoolean) {
                 setEmailError(true);
-                setTextError('Не соответствует формату user@mail.ru');
+                setTextError("Не соответствует формату user@mail.ru");
               } else {
                 setEmailError(false);
-                setTextError('');
+                setTextError("");
               }
               break;
             default:
-              setTextError('');
+              setTextError("");
           }
         }
         // Валидация имени, фамилии, файла в нужном формате
-        if (validation === 'isName' && !minLengthError) {
+        if (validation === "isName" && !minLengthError) {
           switch (inputName) {
-            case 'name':
-            case 'family':
+            case "name":
+            case "family":
               const pattern = /^[a-zA-Zа-яА-Я -]+$/i;
               const patternBoolean = pattern.test(String(value).toLowerCase());
 
               if (!patternBoolean) {
                 setNameError(true);
                 setTextError(
-                  'Только буквы латинского или кириллического алфавита '
+                  "Только буквы латинского или кириллического алфавита "
                 );
               } else {
                 setNameError(false);
-                setTextError('');
+                setTextError("");
               }
               break;
-            case 'file':
+            case "file":
               const patternFile = /(\.jpg|\.png)$/i;
               const patternFileBoolean = patternFile.test(
                 String(value).toLowerCase()
@@ -110,23 +110,23 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
 
               if (!patternFileBoolean) {
                 setFileNameError(true);
-                setTextError('Файл только формата jpg или png');
+                setTextError("Файл только формата jpg или png");
               } else {
                 setFileNameError(false);
-                setTextError('');
+                setTextError("");
               }
               break;
             default:
-              setTextError('');
+              setTextError("");
           }
         }
-        if (validation === 'isSizeFile' && !fileNameError) {
+        if (validation === "isSizeFile" && !fileNameError) {
           if (sizeFile > 2) {
             setFileSizeError(true);
-            setTextError('Допустимый размер файла 2 МБ.');
+            setTextError("Допустимый размер файла 2 МБ.");
           } else {
             setFileSizeError(false);
-            setTextError('');
+            setTextError("");
           }
         }
       }
