@@ -33,6 +33,8 @@ function App(): JSX.Element {
 
   const [resultEvent, setResultEvent] = useState({});
   const [listFeedback, setListFeedback] = useState([{}]);
+  console.log(resultEvent);
+  console.log(listFeedback);
 
   function addFeedback(feedback: IFeedback): void {
     setListFeedback((prev) => [...prev, feedback]);

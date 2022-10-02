@@ -16,13 +16,13 @@ export function useValidate(
   const [fileNameError, setFileNameError] = useState(false);
   const [fileSizeError, setFileSizeError] = useState(false);
   const [textError, setTextError] = useState("");
+  const [inputNotValide, setInputNotValide] = useState(false);
 
   useEffect(
     function (): void {
       for (const validation in validations) {
         // Валидация на пустой или нет
         if (validation === "isEmpty") {
-          console.log(minLengthError);
           value ? setIsEmptyError(false) : setIsEmptyError(true);
         }
 
@@ -101,14 +101,16 @@ export function useValidate(
               const pattern = /^[a-zA-Zа-яА-Я -]+$/i;
               const patternBoolean = pattern.test(String(value).toLowerCase());
 
-              if (!patternBoolean) {
+              if (!patternBoolean && inputNotValide) {
                 setNameError(true);
                 setTextError(
                   "Только буквы латинского или кириллического алфавита "
                 );
+                setInputNotValide(true);
               } else {
                 setNameError(false);
                 setTextError("");
+                setInputNotValide(false);
               }
               break;
             case "file":
@@ -155,6 +157,7 @@ export function useValidate(
       sizeFile,
       validations,
       value,
+      inputNotValide,
     ]
   );
 
