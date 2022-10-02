@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/form-ts-tric/static/css/main.79b56397.css",
+    "main.js": "/form-ts-tric/static/js/main.6798a4d6.js",
+    "static/js/787.9493fdf4.chunk.js": "/form-ts-tric/static/js/787.9493fdf4.chunk.js",
+    "index.html": "/form-ts-tric/index.html",
+    "static/media/caret-down-svgrepo-com.svg": "/form-ts-tric/static/media/caret-down-svgrepo-com.2f17963b2001374cc95d.svg",
+    "main.79b56397.css.map": "/form-ts-tric/static/css/main.79b56397.css.map",
+    "main.6798a4d6.js.map": "/form-ts-tric/static/js/main.6798a4d6.js.map",
+    "787.9493fdf4.chunk.js.map": "/form-ts-tric/static/js/787.9493fdf4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79b56397.css",
+    "static/js/main.6798a4d6.js"
+  ]
+}
