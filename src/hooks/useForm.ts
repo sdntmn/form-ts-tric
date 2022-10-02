@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useValidate } from "./useValidation";
 
-interface IUseForm {
+export interface IUseForm {
   isEmpty: boolean;
   minLength?: number;
   isName?: boolean;
@@ -10,13 +10,6 @@ interface IUseForm {
 
   [key: string]: unknown;
 }
-
-type FormFields = {
-  username: HTMLInputElement;
-};
-
-const inputElement = "HTMLInputElement";
-const selectElement = "HTMLSelectElement";
 
 export function useForm(
   _initialValue: string,
@@ -35,7 +28,12 @@ export function useForm(
   value: string;
   isBlur: boolean;
   resetFrom: (newValues?: string, newIsValid?: boolean) => void;
-  handleChange: (event: any) => typeof inputElement;
+  handleChange: (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
+  handleChangeFiles: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (
     event: React.FocusEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -46,31 +44,34 @@ export function useForm(
   const [inputName, setInputName] = useState<string>("");
   const [isBlur, setBlur] = useState<boolean>(false);
   const [sizeFile, setSizeFile] = useState<number>(0);
-  const valid = useValidate(value, validations, inputName, isBlur, sizeFile);
+  const valid = useValidate(value, isBlur, sizeFile, inputName, validations);
 
-  function handleChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): typeof inputElement;
-  function handleChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): typeof selectElement;
-  function handleChange(event: any): any {
-    let input = event.target;
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const input = event.target;
     const nameInput = input.name;
     const inputValue = input.value;
 
     setValue(inputValue);
     setInputName(nameInput);
-    if (nameInput === "file") {
-      if (input.files !== null) {
-        const file = input.files[0];
-        console.log(file);
-        const sizePicture: number = file.size / 1024 / 1024;
+  };
 
-        setSizeFile(sizePicture);
-      }
+  const handleChangeFiles = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const input = event.target;
+    const nameInput = input.name;
+    const inputValue = input.value;
+    setInputName(nameInput);
+
+    if (input.files !== null) {
+      const file = input.files[0];
+      const sizePicture: number = file.size / 1024 / 1024;
+      setValue(inputValue);
+      setSizeFile(sizePicture);
     }
-  }
+  };
 
   const onBlur = (event: React.FormEvent) => {
     setBlur(true);
@@ -87,11 +88,12 @@ export function useForm(
   return {
     value,
     isBlur,
-    handleChange,
-    onBlur,
     ...valid,
-    inputName,
     sizeFile,
+    inputName,
+    onBlur,
     resetFrom,
+    handleChange,
+    handleChangeFiles,
   };
 }

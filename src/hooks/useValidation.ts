@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
+import { IUseForm } from "./useForm";
 
-export function useValidate(value, validations, inputName, isBlur, sizeFile) {
+export function useValidate(
+  value: string,
+  isBlur: boolean,
+  sizeFile: number,
+  inputName: string,
+  validations: IUseForm
+) {
   const [inputValid, setInputValid] = useState(false);
   const [isEmptyError, setIsEmptyError] = useState(true);
   const [minLengthError, setMinLengthError] = useState(false);
@@ -11,27 +18,28 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
   const [textError, setTextError] = useState("");
 
   useEffect(
-    function (evt) {
+    function (): void {
       for (const validation in validations) {
         // Валидация на пустой или нет
         if (validation === "isEmpty") {
+          console.log(minLengthError);
           value ? setIsEmptyError(false) : setIsEmptyError(true);
         }
+
         // Валидация на минимальную длину
         if (validation === "minLength") {
           switch (inputName) {
             case "name":
-              if (value.length < validations[validation]) {
+              if (value.length < validations[validation]!) {
                 setMinLengthError(true);
                 setTextError("Минимальное количество знаков 2");
               } else {
                 setMinLengthError(false);
                 setTextError("");
               }
-
               break;
             case "family":
-              if (value.length < validations[validation]) {
+              if (value.length < validations[validation]!) {
                 setMinLengthError(true);
                 setTextError("Минимальное количество знаков 2");
               } else {
@@ -40,7 +48,7 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
               }
               break;
             case "email":
-              if (value.length < validations[validation]) {
+              if (value.length < validations[validation]!) {
                 setMinLengthError(true);
                 setTextError("Минимальное количество знаков 3");
               } else {
@@ -49,7 +57,7 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
               }
               break;
             case "textFeedback":
-              if (value.length < validations[validation]) {
+              if (value.length < validations[validation]!) {
                 setMinLengthError(true);
                 setTextError("Минимальное количество знаков 10");
               } else {
@@ -58,7 +66,7 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
               }
               break;
             default:
-              setTextError("");
+              return setTextError("");
           }
         }
 
@@ -81,9 +89,10 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
               }
               break;
             default:
-              setTextError("");
+              return setTextError("");
           }
         }
+
         // Валидация имени, фамилии, файла в нужном формате
         if (validation === "isName" && !minLengthError) {
           switch (inputName) {
@@ -117,26 +126,32 @@ export function useValidate(value, validations, inputName, isBlur, sizeFile) {
               }
               break;
             default:
-              setTextError("");
+              return setTextError("");
           }
         }
         if (validation === "isSizeFile" && !fileNameError) {
-          if (sizeFile > 2) {
-            setFileSizeError(true);
-            setTextError("Допустимый размер файла 2 МБ.");
-          } else {
-            setFileSizeError(false);
-            setTextError("");
+          switch (inputName) {
+            case "file":
+              if (sizeFile > 2) {
+                setFileSizeError(true);
+                setTextError("Допустимый размер файла 2 МБ.");
+              } else {
+                setFileSizeError(false);
+                setTextError("");
+              }
+              break;
+            default:
+              return setTextError("");
           }
         }
       }
     },
     [
+      isEmptyError,
+      minLengthError,
       fileNameError,
       inputName,
       isBlur,
-      isEmptyError,
-      minLengthError,
       sizeFile,
       validations,
       value,

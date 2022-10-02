@@ -1,6 +1,3 @@
-const inputElement = "HTMLInputElement";
-const selectElement = "HTMLSelectElement";
-
 interface IInputProps {
   name: string;
   type: string;
@@ -11,8 +8,6 @@ interface IInputProps {
   placeholder?: string;
   autoComplete?: string;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
-  // onChange: (event: React.ChangeEvent<HTMLInputElement>): any ;
-  // onChange: (event: React.ChangeEvent< HTMLSelectElement>)
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -28,7 +23,6 @@ function Input({
   onBlur,
   onChange,
 }: IInputProps): JSX.Element {
-  console.log(isData);
   return (
     <div className="form__wrap">
       <label className="form__label form__label-extend">{placeholder}</label>

@@ -71,9 +71,6 @@ function App(): JSX.Element {
     (!family.inputValid && !name.inputValid);
 
   // // Оставил чтобы видно было сохранение данных
-  console.log(Input);
-  console.log(listFeedback);
-
   return (
     <div className="feedback container">
       <h1 className="feedback__title">Обратная связь</h1>
@@ -184,7 +181,7 @@ function App(): JSX.Element {
           className="form__input"
           value={file.value}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            file.handleChange(event)
+            file.handleChangeFiles(event)
           }
           onBlur={(event: React.FocusEvent<HTMLInputElement>) =>
             file.onBlur(event)
