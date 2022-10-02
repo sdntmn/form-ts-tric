@@ -26,7 +26,6 @@ const TextArea = function ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        placeholder={placeholder}
       ></textarea>
 
       <span className="form__input-error"> {isData && textError}</span>

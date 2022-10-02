@@ -33,8 +33,8 @@ function App(): JSX.Element {
 
   const [resultEvent, setResultEvent] = useState({});
   const [listFeedback, setListFeedback] = useState([{}]);
-  console.log(resultEvent);
-  console.log(listFeedback);
+  // console.log(resultEvent);
+  // console.log(listFeedback);
 
   function addFeedback(feedback: IFeedback): void {
     setListFeedback((prev) => [...prev, feedback]);
@@ -139,7 +139,7 @@ function App(): JSX.Element {
             Категория обращения:
           </label>
           <select
-            className="select__sel"
+            className="select__category"
             id="standard-select"
             name="category"
             value={category.value}
