@@ -7,9 +7,11 @@
 body {
   box-sizing: border-box;
   margin: 0;
+
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,12 +26,15 @@ code {
   max-width: 450px;
   margin: 0 auto;
   padding: 0 15px;
+
   text-align: center;
 }
 
 .feedback__title {
   margin-bottom: 2px;
+
   color: #212529;
+
   font-size: 25px;
   font-weight: 300;
   line-height: 1.2;
@@ -38,7 +43,9 @@ code {
 .feedback__text {
   margin-bottom: 5px;
   padding: 0 15px;
+
   color: #212529;
+
   font-size: 18px;
 }
 
@@ -56,9 +63,12 @@ code {
 
 .form__wrap {
   position: relative;
+
   display: grid;
+
   width: 100%;
   margin-top: 20px;
+
   grid-template-rows: 1fr 12px;
 }
 
@@ -66,10 +76,13 @@ code {
   box-sizing: border-box;
   width: 100%;
   padding: 4px 10px;
+
   cursor: text;
   transition: border-bottom 0.3s;
+
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
+
   font-size: 14px;
   line-height: 18px;
 }
@@ -77,30 +90,40 @@ code {
 .form__input-error {
   margin: 0;
   padding: 0;
+
   color: red;
+
   font-size: 10px;
 }
 
 .form__wrap:focus-within .form__label {
+  z-index: 100;
+
   color: rgb(218, 24, 202);
   background: rgb(255, 255, 255);
-  z-index: 100;
 }
 
 .form__label {
   position: absolute;
+
   display: block;
-  font-size: 11px;
+
   color: rgb(124, 112, 123);
+
+  font-size: 11px;
 }
 
 .select {
+  position: relative;
+
   display: grid;
+
   width: 100%;
   margin-top: 30px;
+
   color: rgb(124, 112, 123);
+
   grid-template-rows: 1fr 12px;
-  position: relative;
 }
 
 .select:focus-within .form__label {
@@ -111,6 +134,7 @@ code {
 .form__label-extend {
   top: -7px;
   left: 6px;
+
   background: rgb(255, 255, 255);
 }
 
@@ -122,11 +146,14 @@ code {
   width: 100%;
   margin: 0;
   padding: 5px 10px;
-  outline: none;
+
   cursor: pointer;
-  border-radius: 3px;
+
   border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  outline: none;
   background: url("/src/components/caret-down-svgrepo-com.svg") no-repeat right;
+
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -134,21 +161,25 @@ code {
 
 .form__input:focus,
 .form__textarea:focus {
+  z-index: 2;
+
   outline: none;
   background-color: inherit;
-  z-index: 2;
 }
 
 .form__textarea {
   box-sizing: border-box;
   width: 100%;
   padding: 0 10px;
+
   resize: vertical;
   cursor: text;
+
+  border-radius: 3px;
   outline: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+
   line-height: 18px;
-  border-radius: 3px;
 }
 
 .form__button {
