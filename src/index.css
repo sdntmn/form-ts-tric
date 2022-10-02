@@ -157,6 +157,8 @@ code {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+
+  appearance: none;
 }
 
 .form__input:focus,
