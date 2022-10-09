@@ -33,8 +33,8 @@ function App(): JSX.Element {
 
   const [resultEvent, setResultEvent] = useState({});
   const [listFeedback, setListFeedback] = useState([{}]);
-  // console.log(resultEvent);
-  // console.log(listFeedback);
+  console.log(resultEvent);
+  console.log(listFeedback);
 
   function addFeedback(feedback: IFeedback): void {
     setListFeedback((prev) => [...prev, feedback]);
@@ -72,7 +72,6 @@ function App(): JSX.Element {
     !email.inputValid ||
     (!family.inputValid && !name.inputValid);
 
-  // // Оставил чтобы видно было сохранение данных
   return (
     <div className="feedback container">
       <h1 className="feedback__title">Обратная связь</h1>
